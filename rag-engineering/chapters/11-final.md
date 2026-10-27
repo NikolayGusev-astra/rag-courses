@@ -2,7 +2,7 @@
 
 ## Что ты построишь
 
-![Иллюстрация главы 10-final](illustrations/final.svg)
+![Иллюстрация главы 11-final](illustrations/final.svg)
 
 Финальный проект собирает курс в один артефакт: production-ready RAG с цитатами на своём корпусе. Индексация с чанкингом и метаданными прав из модулей 03 и 09, гибридный поиск с реранком из модулей 04 и 05, генерация с цитатами, [eval-раннер](/glossary/evals/) из модуля 06, сервис с HTTP-поиском и фильтром прав из модуля 09. Проект принимается не на словах, а по чеклисту приёмки: каждый пункт проверяется командой или тестом с чистой копии репозитория.
 
@@ -102,5 +102,5 @@ Eval-раннер на [золотом наборе](/glossary/golden-nabor/). �
 
 ---
 
-**Материалы главы:** [текст главы в репо](https://github.com/NikolayGusev-astra/rag-courses/tree/main/rag-engineering/chapters/10-final) · [код](https://github.com/NikolayGusev-astra/rag-courses/tree/main/rag-engineering/code) · [иллюстрации](https://github.com/NikolayGusev-astra/rag-courses/tree/main/rag-engineering/illustrations) · [подписка на обновления курса](https://github.com/NikolayGusev-astra/rag-courses/blob/main/SUBSCRIBE.md)
+**Материалы главы:** [текст главы в репо](https://github.com/NikolayGusev-astra/rag-courses/tree/main/rag-engineering/chapters/11-final) · [код](https://github.com/NikolayGusev-astra/rag-courses/tree/main/rag-engineering/code) · [иллюстрации](https://github.com/NikolayGusev-astra/rag-courses/tree/main/rag-engineering/illustrations) · [подписка на обновления курса](https://github.com/NikolayGusev-astra/rag-courses/blob/main/SUBSCRIBE.md)
 

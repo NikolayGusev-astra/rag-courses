@@ -1,4 +1,4 @@
-"""Курс RAG Engineering, глава 09-production. Версия 1.1.0.
+"""Курс RAG Engineering, глава 09-production. Версия 1.2.0.
 Репо: https://github.com/NikolayGusev-astra/rag-courses. Запуск: python 09-production.py (оффлайн, чистый stdlib, если в главе не сказано иное).
 Особенности запуска: оффлайн-самопроверка на stdlib; сервер требует `pip install fastapi uvicorn`
 """

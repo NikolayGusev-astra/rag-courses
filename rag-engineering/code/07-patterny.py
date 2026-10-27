@@ -1,4 +1,4 @@
-"""Курс RAG Engineering, глава 07-patterny. Версия 1.1.0.
+"""Курс RAG Engineering, глава 07-patterny. Версия 1.2.0.
 Репо: https://github.com/NikolayGusev-astra/rag-courses. Запуск: python 07-patterny.py (оффлайн, чистый stdlib, если в главе не сказано иное).
 """
 

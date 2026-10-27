@@ -1,4 +1,4 @@
-"""Курс RAG Engineering, глава 06-eval. Версия 1.1.0.
+"""Курс RAG Engineering, глава 06-eval. Версия 1.2.0.
 Репо: https://github.com/NikolayGusev-astra/rag-courses. Запуск: python 06-eval.py (оффлайн, чистый stdlib, если в главе не сказано иное).
 """
 

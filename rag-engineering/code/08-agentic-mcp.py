@@ -1,4 +1,4 @@
-"""Курс RAG Engineering, глава 08-agentic-mcp. Версия 1.1.0.
+"""Курс RAG Engineering, глава 08-agentic-mcp. Версия 1.2.0.
 Репо: https://github.com/NikolayGusev-astra/rag-courses. Запуск: python 08-agentic-mcp.py (оффлайн, чистый stdlib, если в главе не сказано иное).
 Особенности запуска: требует `pip install "mcp>=2"`; файл содержит сервер, клиент и фрагменты агента — запускай kb_server/kb_client по инструкции главы
 """

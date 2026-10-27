@@ -1,4 +1,4 @@
-"""Курс RAG Engineering, глава 05-reranking. Версия 1.1.0.
+"""Курс RAG Engineering, глава 05-reranking. Версия 1.2.0.
 Репо: https://github.com/NikolayGusev-astra/rag-courses. Запуск: python 05-reranking.py (оффлайн, чистый stdlib, если в главе не сказано иное).
 Особенности запуска: оффлайн-часть на stdlib; блок с transformers требует `pip install transformers` и веса модели
 """

@@ -1,3 +1,22 @@
+## [1.2.0] - 2026-10-28
+
+### Добавлено
+
+- Новая глава 10 «Федеративный RAG»: коннекторы с health-проверками, provenance каждого фрагмента, деградация на упавшем источнике, слияние с весами и телеметрия попаданий по источникам. Финальный проект переехал в главу 11.
+- m00: zvec в ландшафте встроенных движков (v0.8.0, гибрид и FTS в одном процессе); классы managed-поиска, memory-слоёв и portable memory; явная фраза, почему курс без фреймворков; картина 2026 по long context против retrieval.
+- m01: рабочие открытые эмбеддеры для русского корпуса (bge-m3, USER-bge-m3, Giga-Embeddings-instruct, Qwen3-Embedding); ловушка согласованности embedding-пространства с замером.
+- m02: абзац «владелец индекса»: кто держит коллекцию, клиенты через сервис, тихая подмена бэкенда.
+- m03: contextual retrieval и late chunking — два приёма контекста чанка, цены и границы.
+- m04: learned sparse как третий класс между BM25 и dense, SPLADE и лицензии, sparse у BGE-M3/Qdrant/zvec.
+- m05: late interaction (ColBERT, MaxSim, PyLate, jina-colbert-v2) и визуальный retrieval (ColPali/ColQwen2.5); listwise-тренд реранкеров (Jina v3.5, Qwen3-Reranker).
+- m07: графовый стек GraphRAG: NetworkX для прототипов, Neo4j + neo4j-graphrag-python, LightRAG, Memgraph/FalkorDB; урок про зависшего вендора (Kuzu закрылся в 2026).
+- m08: keyword-классификация запроса и маршрутизация до агентного цикла.
+- Новая иллюстрация m10-federated.svg.
+
+### Изменено
+
+- Финальный проект: slug 10-final → 11-final.
+
 # Changelog
 
 Формат: семантическое версионирование. Минор — новое содержание курса

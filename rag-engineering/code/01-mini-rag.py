@@ -1,4 +1,4 @@
-"""Курс RAG Engineering, глава 01-mini-rag. Версия 1.1.0.
+"""Курс RAG Engineering, глава 01-mini-rag. Версия 1.2.0.
 Репо: https://github.com/NikolayGusev-astra/rag-courses. Запуск: python 01-mini-rag.py (оффлайн, чистый stdlib, если в главе не сказано иное).
 """
 
