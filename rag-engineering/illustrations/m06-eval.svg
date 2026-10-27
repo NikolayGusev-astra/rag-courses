@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360">
+<rect width="960" height="360" fill="#101010" rx="12"/>
+<text x="24" y="40" fill="#f5f5f5" font-size="20" font-weight="600" font-family="Segoe UI, sans-serif">Eval: метрика вместо веры</text><g><rect x="40" y="140" rx="10" width="170" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="125.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">GOLD</text><text x="125.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">вопрос + верный документ</text></g><g><rect x="280" y="140" rx="10" width="190" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="375.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Пайплайн поиска</text><text x="375.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">baseline и кандидат</text></g><g><rect x="540" y="140" rx="10" width="170" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="625.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Метрики</text><text x="625.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">recall@k, MRR, nDCG</text></g><g><animate attributeName="opacity" values="1;0.65;1" dur="2.4s" repeatCount="indefinite"/><rect x="780" y="140" rx="10" width="140" height="64" fill="#0000F2" stroke="#4444ff" stroke-width="1.5"/><text x="850.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Порог в CI</text><text x="850.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">регресс = красный PR</text></g><g><rect x="280" y="290" rx="10" width="190" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="375.0" y="318.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">LLM-судья</text><text x="375.0" y="338.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">faithfulness ответа</text></g><line x1="210" y1="172.0" x2="280" y2="172.0" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M210,172.0 L280,172.0"/>
+  </circle><line x1="470" y1="172.0" x2="540" y2="172.0" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="1s" path="M470,172.0 L540,172.0"/>
+  </circle><line x1="710" y1="172.0" x2="780" y2="172.0" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="2s" path="M710,172.0 L780,172.0"/>
+  </circle><line x1="375" y1="290" x2="470" y2="204" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0.4s" path="M375,290 L470,204"/>
+  </circle>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360">
+<rect width="960" height="360" fill="#101010" rx="12"/>
+<text x="24" y="40" fill="#f5f5f5" font-size="20" font-weight="600" font-family="Segoe UI, sans-serif">Векторная БД: индекс и фильтры</text><g><rect x="40" y="140" rx="10" width="160" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="120.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Клиент</text><text x="120.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">запрос + фильтр</text></g><g><rect x="270" y="140" rx="10" width="200" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="370.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">HNSW-индекс</text><text x="370.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">граф близких векторов</text></g><g><rect x="540" y="140" rx="10" width="180" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="630.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Payload-фильтр</text><text x="630.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">тенант, права, дата</text></g><g><animate attributeName="opacity" values="1;0.65;1" dur="2.4s" repeatCount="indefinite"/><rect x="790" y="140" rx="10" width="130" height="64" fill="#0000F2" stroke="#4444ff" stroke-width="1.5"/><text x="855.0" y="177.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Top-k</text></g><g><rect x="270" y="290" rx="10" width="200" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="370.0" y="318.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">До индексации: эмбеддинги чанков</text><text x="370.0" y="338.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">пакетная загрузка</text></g><line x1="200" y1="172.0" x2="270" y2="172.0" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M200,172.0 L270,172.0"/>
+  </circle><line x1="470" y1="172.0" x2="540" y2="172.0" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="1s" path="M470,172.0 L540,172.0"/>
+  </circle><line x1="720" y1="172.0" x2="790" y2="172.0" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="2s" path="M720,172.0 L790,172.0"/>
+  </circle><line x1="370" y1="290" x2="370" y2="204" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0.5s" path="M370,290 L370,204"/>
+  </circle>
+</svg>

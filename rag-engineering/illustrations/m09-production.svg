@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360">
+<rect width="960" height="360" fill="#101010" rx="12"/>
+<text x="24" y="40" fill="#f5f5f5" font-size="20" font-weight="600" font-family="Segoe UI, sans-serif">Production: сервис вместо скрипта</text><g><rect x="30" y="140" rx="10" width="110" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="85.0" y="177.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Клиенты</text></g><g><rect x="190" y="140" rx="10" width="140" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="260.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">FastAPI</text><text x="260.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">SSE-стриминг</text></g><g><rect x="380" y="140" rx="10" width="130" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="445.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Кэш</text><text x="445.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">ответы и эмбеддинги</text></g><g><rect x="560" y="140" rx="10" width="180" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="650.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Поиск с правами</text><text x="650.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">фильтр ДО выдачи</text></g><g><rect x="790" y="140" rx="10" width="130" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="855.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">LLM</text><text x="855.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">ответ с цитатами</text></g><g><rect x="560" y="290" rx="10" width="180" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="650.0" y="318.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Деградация: BM25</text><text x="650.0" y="338.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">если dense недоступен</text></g><g><rect x="190" y="290" rx="10" width="140" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="260.0" y="318.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Логи качества</text><text x="260.0" y="338.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">что находилось в бою</text></g><line x1="140" y1="172.0" x2="190" y2="172.0" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M140,172.0 L190,172.0"/>
+  </circle><line x1="330" y1="172.0" x2="380" y2="172.0" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0.8s" path="M330,172.0 L380,172.0"/>
+  </circle><line x1="510" y1="172.0" x2="560" y2="172.0" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="1.6s" path="M510,172.0 L560,172.0"/>
+  </circle><line x1="740" y1="172.0" x2="790" y2="172.0" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="2.4s" path="M740,172.0 L790,172.0"/>
+  </circle><line x1="650" y1="290" x2="650" y2="204" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0.4s" path="M650,290 L650,204"/>
+  </circle><line x1="560" y1="322.0" x2="330" y2="322.0" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="1.2s" path="M560,322.0 L330,322.0"/>
+  </circle><line x1="260" y1="290" x2="260" y2="204" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="2s" path="M260,290 L260,204"/>
+  </circle>
+</svg>

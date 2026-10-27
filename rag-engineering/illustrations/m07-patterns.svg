@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360">
+<rect width="960" height="360" fill="#101010" rx="12"/>
+<text x="24" y="40" fill="#f5f5f5" font-size="20" font-weight="600" font-family="Segoe UI, sans-serif">HyDE: сначала гипотеза, потом поиск</text><g><rect x="40" y="180" rx="10" width="140" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="110.0" y="217.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Запрос</text></g><g><rect x="250" y="180" rx="10" width="190" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="345.0" y="208.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">LLM: гипотетический документ</text><text x="345.0" y="228.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">как выглядел бы ответ</text></g><g><rect x="520" y="180" rx="10" width="170" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="605.0" y="208.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Поиск по гипотезе</text><text x="605.0" y="228.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">dense ближе к ответу</text></g><g><animate attributeName="opacity" values="1;0.65;1" dur="2.4s" repeatCount="indefinite"/><rect x="760" y="180" rx="10" width="160" height="64" fill="#0000F2" stroke="#4444ff" stroke-width="1.5"/><text x="840.0" y="208.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Кандидаты + fallback</text><text x="840.0" y="228.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">на baseline при сбое</text></g><line x1="180" y1="212.0" x2="250" y2="212.0" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M180,212.0 L250,212.0"/>
+  </circle><line x1="440" y1="212.0" x2="520" y2="212.0" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="1s" path="M440,212.0 L520,212.0"/>
+  </circle><line x1="690" y1="212.0" x2="760" y2="212.0" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="2s" path="M690,212.0 L760,212.0"/>
+  </circle><text x="480.0" y="320" text-anchor="middle" fill="#9aa0a6" font-size="13" font-family="Segoe UI, sans-serif">Паттерн принимается, только если прирост на GOLD больше его цены</text>
+</svg>
