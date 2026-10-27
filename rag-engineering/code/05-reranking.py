@@ -1,9 +1,12 @@
-"""Курс RAG Engineering, глава 05-reranking. Версия 1.0.0.
+"""Курс RAG Engineering, глава 05-reranking. Версия 1.1.0.
 Репо: https://github.com/NikolayGusev-astra/rag-courses. Запуск: python 05-reranking.py (оффлайн, чистый stdlib, если в главе не сказано иное).
+Особенности запуска: оффлайн-часть на stdlib; блок с transformers требует `pip install transformers` и веса модели
 """
 
 
-# ======================================================================import math
+# ======================================================================
+
+import math
 import re
 import time
 import hashlib
@@ -78,9 +81,15 @@ def cross_score(query, doc_text):
     if not q_tokens:
         return 0.0
     doc_tokens = set(tokenize(doc_text))
-    hit = sum(1 for t in q_tokens if t in doc_tokens) / len(q_tokens)
+    # уникальные токены запроса: повтор "vpn vpn vpn" не должен менять скор
+    hit = sum(1 for t in set(q_tokens) if t in doc_tokens) / len(set(q_tokens))
     phrase = 0.5 if query.lower() in doc_text.lower() else 0.0
-    return hit + phrase - 0.1 * len(doc_text) / 500
+    length_penalty = -0.1 * len(doc_text) / 500
+    # нулевое пересечение означает "не релевантен": такой кандидат получает
+    # ноль, а не полсотни разных отрицательных скоров, упорядоченных по длине
+    if hit == 0.0:
+        return 0.0
+    return 1.0 + hit + phrase + length_penalty
 
 def rerank(query, doc_ids, docs, top_n=5):
     texts = {d["id"]: d["title"] + " " + d["text"] for d in docs}

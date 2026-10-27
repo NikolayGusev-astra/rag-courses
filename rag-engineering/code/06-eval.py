@@ -1,9 +1,11 @@
-"""Курс RAG Engineering, глава 06-eval. Версия 1.0.0.
+"""Курс RAG Engineering, глава 06-eval. Версия 1.1.0.
 Репо: https://github.com/NikolayGusev-astra/rag-courses. Запуск: python 06-eval.py (оффлайн, чистый stdlib, если в главе не сказано иное).
 """
 
 
-# ======================================================================import math
+# ======================================================================
+
+import math
 
 def recall_at_k(relevant, retrieved, k):
     """Доля релевантных документов, попавших в первые k позиций."""
@@ -77,7 +79,7 @@ GOLD = [
 ]
 
 def tokenize(text):
-    return re.findall(r"[a-zа-я0-9]+", text.lower())
+    return re.findall(r"[a-zа-яё0-9]+", text.lower())
 
 def embed(text, dim=64):
     # Для продакшена замените на живой эмбеддер
@@ -93,6 +95,9 @@ def bm25_search(docs, query, k=K, k1=1.5, b=0.75):
     corpus = [tokenize(doc["text"]) for doc in docs]
     query_tokens = tokenize(query)
     n = len(corpus)
+    # пустой корпус и пустой запрос не должны валить раннер: возвращаем пустую выдачу
+    if n == 0 or not query_tokens:
+        return []
     avgdl = sum(len(tokens) for tokens in corpus) / n
     df = {}
     for tokens in corpus:
@@ -110,6 +115,8 @@ def bm25_search(docs, query, k=K, k1=1.5, b=0.75):
             idf = math.log(1 + (n - df[word] + 0.5) / (df[word] + 0.5))
             score += idf * tf[word] * (k1 + 1) / (tf[word] + k1 * (1 - b + b * len(tokens) / avgdl))
         scored.append((-score, doc["id"]))
+    # без пересечений (score=0) документ не выдаём: иначе мусорный запрос получает произвольную выдачу
+    scored = [pair for pair in scored if -pair[0] > 0.0]
     scored.sort()
     return [doc_id for _, doc_id in scored[:k]]
 
@@ -130,7 +137,8 @@ def rrf_fuse(list_a, list_b, k_rrf=60):
     return sorted(scores, key=lambda doc_id: (-scores[doc_id], doc_id))
 
 def recall_at_k(ranked, relevant, k=K):
-    return len(set(ranked[:k]) & set(relevant)) / len(relevant)
+    # кривая строка GOLD не должна ронять весь прогон: нет релевантных -> recall 0
+    return len(set(ranked[:k]) & set(relevant)) / len(relevant) if relevant else 0.0
 
 def mrr(ranked, relevant):
     for rank, doc_id in enumerate(ranked, start=1):

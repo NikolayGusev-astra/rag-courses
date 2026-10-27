@@ -155,7 +155,12 @@ def bm25_search(docs, query, k):
             score += idf * (tf * (k1 + 1.0) / denom)
         scores[d["id"]] = score
 
-    ranked = sorted(scores.items(), key=lambda x: (-x[1], str(x[0])))
+    # нулевой скор это отсутствие пересечений: такие документы не выдаём,
+    # иначе мусорный запрос получает произвольную выдачу с рейтингом
+    ranked = sorted(
+        ((doc_id, s) for doc_id, s in scores.items() if s > 0.0),
+        key=lambda x: (-x[1], str(x[0])),
+    )
     return [doc_id for doc_id, _ in ranked[:k]]
 
 

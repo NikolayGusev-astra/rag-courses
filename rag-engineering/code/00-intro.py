@@ -1,9 +1,11 @@
-"""Курс RAG Engineering, глава 00-intro. Версия 1.0.0.
+"""Курс RAG Engineering, глава 00-intro. Версия 1.1.0.
 Репо: https://github.com/NikolayGusev-astra/rag-courses. Запуск: python 00-intro.py (оффлайн, чистый stdlib, если в главе не сказано иное).
 """
 
 
-# ======================================================================import hashlib
+# ======================================================================
+
+import hashlib
 import math
 import re
 

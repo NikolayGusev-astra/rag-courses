@@ -16,7 +16,9 @@ def pipeline_answer(query: str, k: int = 5) -> str:
     # Гибридный поиск из модуля 04
     bm25_hits = bm25_search(query, k=k)
     dense_hits = dense_search(query, k=k)  # для продакшена замените на живой эмбеддер
-    chunks = rrf_fuse([bm25_hits, dense_hits], k=k)
+    # k=60 внутри rrf_fuse это константа сглаживания RRF, не глубина выдачи;
+    # глубину отрезаем срезом после слияния
+    chunks = rrf_fuse([bm25_hits, dense_hits])[:k]
 
     context = "\n\n".join(chunk["text"] for chunk in chunks)
     return generate(query, context)  # заглушка вызова LLM
@@ -38,7 +40,10 @@ TOOLS = {
     },
     "calculate": {
         "description": "Вычисление арифметического выражения",
-        "run": lambda expression: str(eval(expression, {"__builtins__": {}})),
+        # eval даже с пустыми __builtins__ не песочница: выражение вида
+        # ().__class__.__bases__[0].__subclasses__() вылезает наружу.
+        # В боевом коде здесь строгий парсер арифметики, см. safe_calculate ниже.
+        "run": lambda expression: safe_calculate(expression),
     },
 }
 
@@ -132,13 +137,13 @@ Model Context Protocol, или MCP, это открытый протокол о�
 
 Последовательность всегда одна и та же. Клиент открывает сессию и инициализирует её, затем запрашивает список инструментов. Модель, увидев описания, выбирает подходящий инструмент и формирует аргументы. Клиент выполняет `call_tool` и возвращает результат обратно модели, которая продолжает рассуждение уже с данными.
 
-Минимальный сервер на `FastMCP`:
+Минимальный сервер на `MCPServer`:
 
 ```python
 # server.py: MCP-сервер базы знаний регламентов
-from mcp.server.fastmcp import FastMCP
+from mcp.server import MCPServer
 
-mcp = FastMCP("knowledge-base")
+mcp = MCPServer("knowledge-base")
 
 @mcp.tool()
 def search(query: str, k: int = 5) -> list[str]:
@@ -150,8 +155,43 @@ def search(query: str, k: int = 5) -> list[str]:
 @mcp.tool()
 def get_document(doc_id: str) -> str:
     """Возвращает полный текст документа по идентификатору."""
-    return DOCS[doc_id]
+    # .get вместо обращения по индексу: несуществующий id не должен ронять сервер
+    return DOCS.get(doc_id, "Документ не найден.")
 ```
+
+```python
+import ast
+import operator
+
+# Строгий калькулятор: только числа и четыре операции, никакой оценки строк.
+# eval здесь не подходит: даже с пустыми __builtins__ выражение через
+# ().__class__.__bases__[0].__subclasses__() добирается до os и выполняет код.
+_ALLOWED_BINOPS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+}
+
+def safe_calculate(expression: str) -> str:
+    tree = ast.parse(expression, mode="eval")
+
+    def visit(node):
+        if isinstance(node, ast.Expression):
+            return visit(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in _ALLOWED_BINOPS:
+            return _ALLOWED_BINOPS[type(node.op)](visit(node.left), visit(node.right))
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -visit(node.operand)
+        raise ValueError(f"не поддерживается: {type(node).__name__}")
+
+    return str(visit(tree))
+```
+
+Проверка на практике: `safe_calculate("2 + 2 * 3")` вернёт `8`, а `safe_calculate("().__class__.__bases__[0].__subclasses__()")` упадёт с `ValueError`, хотя eval с пустыми `__builtins__` такой вызов выполняет. Запусти оба варианта и держи второй как тест на регрессию: инструменты для модели должны быть не удобными, а узкими.
+
 
 Клиент, который подключается по stdio:
 
@@ -182,7 +222,7 @@ asyncio.run(main())
 
 К концу этого раздела у тебя будет работающий MCP-сервер базы знаний и клиент, который с ним разговаривает.
 
-Сервер строится на официальном python-SDK: пакет называется `mcp` и ставится командой `pip install mcp`. Больше никаких зависимостей не нужно. Внутри сервера живёт тот же гибридный поиск, что ты собрал в модуле 04: `bm25_search`, `dense_search` и `rrf_fuse`. Вся эта логика остаётся на чистом stdlib, поэтому поиск работает оффлайн, без сети и без внешних сервисов. Пакет `mcp` нужен только для транспортного слоя, то есть для самого протокола.
+Сервер строится на официальном python-SDK: пакет называется `mcp` и ставится командой `pip install "mcp>=2"`. Больше никаких зависимостей не нужно. Внутри сервера живёт тот же гибридный поиск, что ты собрал в модуле 04: `bm25_search`, `dense_search` и `rrf_fuse`. Вся эта логика остаётся на чистом stdlib, поэтому поиск работает оффлайн, без сети и без внешних сервисов. Пакет `mcp` нужен только для транспортного слоя, то есть для самого протокола.
 
 Ты откроешь наружу два инструмента. Первый, `search(query)`, принимает строку запроса и возвращает топ-3 документа в компактном виде: идентификатор, заголовок и фрагмент текста. Второй, `get_document(doc_id)`, отдаёт полный текст регламента по идентификатору или честно сообщает, что такого документа нет. Сервер запускается по stdio, то есть общается с клиентом через стандартные потоки ввода и вывода, а не через сетевой порт.
 
@@ -190,11 +230,11 @@ asyncio.run(main())
 
 ## Практика: MCP-сервер базы знаний
 
-Сервер строится вокруг класса `FastMCP` из `mcp.server.fastmcp`. Ты создаёшь объект `mcp = FastMCP("kb")`, а дальше просто помечаешь функции декоратором `@mcp.tool()`. FastMCP сам читает сигнатуру функции, собирает схему аргументов и регистрирует инструмент под именем функции. Руками описывать протокол не нужно.
+Сервер строится вокруг класса `MCPServer` из пакета `mcp`. Ты создаёшь объект `mcp = MCPServer("kb")`, а дальше просто помечаешь функции декоратором `@mcp.tool()`. SDK сам читает сигнатуру функции, собирает схему аргументов и регистрирует инструмент под именем функции. Руками описывать протокол не нужно. В старых туториалах класс назывался `FastMCP` и жил в `mcp.server.fastmcp`: во второй версии SDK его переименовали в `MCPServer`, а старый импорт удалили. Если старый код падает с `No module named 'mcp.server.fastmcp'`, это оно: либо переименуй класс, либо закрепи `mcp<2` до поры, но для нового кода пиши сразу на `MCPServer`.
 
-Два правила делают инструмент удобным для модели. Первое: явная типизация аргументов. Если написано `query: str`, схема говорит модели, что нужна строка, и клиент может проверить вызов до отправки. Второе: docstring. FastMCP берёт текст docstring и отдаёт его как описание инструмента, ровно то, что модель видит в `list_tools` и по чему решает, когда звать `search`, а когда `get_document`. Поэтому docstring пишется для модели, а не для тебя: коротко, что делает инструмент и что возвращает. Расплывчатое описание приводит к неверным вызовам.
+Два правила делают инструмент удобным для модели. Первое: явная типизация аргументов. Если написано `query: str`, схема говорит модели, что нужна строка, и клиент может проверить вызов до отправки. Второе: docstring. SDK берёт текст docstring и отдаёт его как описание инструмента, ровно то, что модель видит в `list_tools` и по чему решает, когда звать `search`, а когда `get_document`. Поэтому docstring пишется для модели, а не для тебя: коротко, что делает инструмент и что возвращает. Расплывчатое описание приводит к неверным вызовам.
 
-Функции инструментов объявлены как `async def`. Это требование асинхронного рантайма SDK: внутри нет сетевых запросов, но FastMCP всё равно ждёт корутину. Сам поиск остаётся синхронным и быстрым, поэтому ничего не блокируется.
+Функции инструментов объявлены как `async def`. Это требование асинхронного рантайма SDK: внутри нет сетевых запросов, но SDK всё равно ждёт корутину. Сам поиск остаётся синхронным и быстрым, поэтому ничего не блокируется.
 
 В конце файла вызывается `mcp.run()`. Без аргументов это stdio-транспорт: сервер читает сообщения из stdin и пишет ответы в stdout. Отсюда важное правило: не печатай в stdout ничего лишнего через `print`, иначе сломаешь поток сообщений. Отладочные сообщения отправляй в stderr.
 
@@ -209,7 +249,7 @@ import math
 import re
 from collections import Counter
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server import MCPServer
 
 # Корпус служебных регламентов
 DOCS = [
@@ -329,7 +369,7 @@ def hybrid_search(query, top_k=3):
     return rrf_fuse([sparse, dense])[:top_k]
 
 # Создаём сервер; имя видно клиенту в метаданных
-mcp = FastMCP("kb")
+mcp = MCPServer("kb")
 
 @mcp.tool()
 async def search(query: str) -> str:
@@ -409,9 +449,9 @@ if __name__ == "__main__":
 
 **Шаг 1. Установка и первый запуск.**
 ```bash
-pip install mcp
+pip install "mcp>=2"
 ```
-Сохраняй `kb_server.py` и `kb_client.py` из практики. Сервер создаёт `FastMCP("kb")`, регистрирует `search(query: str)` и `get_document(doc_id: str)`, а внутри вызывает `rrf_fuse(bm25_search(query), dense_search(query))` по корпусу `DOCS`. Клиент поднимает процесс сервера через `stdio_client`, открывает `ClientSession`, делает `initialize()` и `list_tools()`.
+Сохраняй `kb_server.py` и `kb_client.py` из практики. Сервер создаёт `MCPServer("kb")`, регистрирует `search(query: str)` и `get_document(doc_id: str)`, а внутри вызывает `rrf_fuse(bm25_search(query), dense_search(query))` по корпусу `DOCS`. Клиент поднимает процесс сервера через `stdio_client`, открывает `ClientSession`, делает `initialize()` и `list_tools()`.
 
 ```python
 # kb_client.py, фрагмент

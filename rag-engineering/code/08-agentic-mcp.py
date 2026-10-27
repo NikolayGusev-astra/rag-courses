@@ -1,16 +1,22 @@
-"""Курс RAG Engineering, глава 08-agentic-mcp. Версия 1.0.0.
+"""Курс RAG Engineering, глава 08-agentic-mcp. Версия 1.1.0.
 Репо: https://github.com/NikolayGusev-astra/rag-courses. Запуск: python 08-agentic-mcp.py (оффлайн, чистый stdlib, если в главе не сказано иное).
+Особенности запуска: требует `pip install "mcp>=2"`; файл содержит сервер, клиент и фрагменты агента — запускай kb_server/kb_client по инструкции главы
 """
 
 
-# ======================================================================TOOLS = {
+# ======================================================================
+
+TOOLS = {
     "search_regulations": {
         "description": "Поиск по служебным регламентам",
         "run": lambda query: search_regulations(query),
     },
     "calculate": {
         "description": "Вычисление арифметического выражения",
-        "run": lambda expression: str(eval(expression, {"__builtins__": {}})),
+        # eval даже с пустыми __builtins__ не песочница: выражение вида
+        # ().__class__.__bases__[0].__subclasses__() вылезает наружу.
+        # В боевом коде здесь строгий парсер арифметики, см. safe_calculate ниже.
+        "run": lambda expression: safe_calculate(expression),
     },
 }
 
@@ -36,13 +42,43 @@ def run_agent(question: str, max_steps: int = 4) -> str:
     return "Не удалось получить ответ за отведённое число шагов."
 
 
+import ast
+import operator
+
+# Строгий калькулятор: только числа и четыре операции, никакой оценки строк.
+# eval здесь не подходит: даже с пустыми __builtins__ выражение через
+# ().__class__.__bases__[0].__subclasses__() добирается до os и выполняет код.
+_ALLOWED_BINOPS = {
+    ast.Add: operator.add,
+    ast.Sub: operator.sub,
+    ast.Mult: operator.mul,
+    ast.Div: operator.truediv,
+}
+
+def safe_calculate(expression: str) -> str:
+    tree = ast.parse(expression, mode="eval")
+
+    def visit(node):
+        if isinstance(node, ast.Expression):
+            return visit(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in _ALLOWED_BINOPS:
+            return _ALLOWED_BINOPS[type(node.op)](visit(node.left), visit(node.right))
+        if isinstance(node, ast.UnaryOp) and isinstance(node.op, ast.USub):
+            return -visit(node.operand)
+        raise ValueError(f"не поддерживается: {type(node).__name__}")
+
+    return str(visit(tree))
+
+
 # файл: kb_server.py
 # MCP-сервер базы знаний: гибридный поиск на stdlib, транспорт stdio
 import math
 import re
 from collections import Counter
 
-from mcp.server.fastmcp import FastMCP
+from mcp.server import MCPServer
 
 # Корпус служебных регламентов
 DOCS = [
@@ -162,7 +198,7 @@ def hybrid_search(query, top_k=3):
     return rrf_fuse([sparse, dense])[:top_k]
 
 # Создаём сервер; имя видно клиенту в метаданных
-mcp = FastMCP("kb")
+mcp = MCPServer("kb")
 
 @mcp.tool()
 async def search(query: str) -> str:

@@ -1,9 +1,12 @@
-"""Курс RAG Engineering, глава 09-production. Версия 1.0.0.
+"""Курс RAG Engineering, глава 09-production. Версия 1.1.0.
 Репо: https://github.com/NikolayGusev-astra/rag-courses. Запуск: python 09-production.py (оффлайн, чистый stdlib, если в главе не сказано иное).
+Особенности запуска: оффлайн-самопроверка на stdlib; сервер требует `pip install fastapi uvicorn`
 """
 
 
-# ======================================================================import hashlib
+# ======================================================================
+
+import hashlib
 import json
 import math
 import os
@@ -17,6 +20,8 @@ _QUERY_EMBED_CACHE = OrderedDict()
 _QUERY_EMBED_MAX = 128
 _ANSWER_CACHE = {}
 _CACHE_TTL = 60.0
+# кэш ответов ограничен: без лимита живёт вечно и растёт с каждым уникальным запросом
+_ANSWER_CACHE_MAX = 256
 
 USERS = {
     "alice": {"hr", "finance"},
@@ -166,7 +171,9 @@ def dense_search(query, k, allowed):
     for doc in chunks:
         doc_vec = embed(doc["text"])
         score = cosine(query_vec, doc_vec)
-        if score > 0.0:
+        # порог отсеивает случайные совпадения hash-эмбеддера: косинус на
+        # бессмысленном запросе положителен почти всегда, ноль не гарантирует мусор
+        if score > 0.05:
             scored.append((doc, score))
 
     scored.sort(key=lambda item: item[1], reverse=True)
@@ -211,6 +218,11 @@ def answer(query, user):
 
     if cached is not None:
         del _ANSWER_CACHE[key]
+
+    # вытесняем самый старый ключ, пока кэш не влезает в лимит;
+    # при переполнении первым уходит первый вставленный
+    while len(_ANSWER_CACHE) >= _ANSWER_CACHE_MAX:
+        _ANSWER_CACHE.pop(next(iter(_ANSWER_CACHE)))
 
     k = 4
     bm25_hits = bm25_search(query, k, allowed)
@@ -266,6 +278,8 @@ def build_app():
 
     @app.get("/search")
     def search_endpoint(query: str, user: str):
+        # user как query-параметр годится только для учебного стенда:
+        # в проде личность берёт из проверенной сессии или JWT, а не из строки запроса
         result = answer(query, user)
         return {"citations": result["citations"]}
 
@@ -362,6 +376,7 @@ if __name__ == "__main__":
 # Перед запуском подними сервис в другом терминале:
 # uvicorn rag_service:build_app --factory
 import json
+import math
 import time
 import urllib.request
 from urllib.parse import quote
@@ -387,7 +402,9 @@ for i in range(100):
 
 latencies.sort()
 median = latencies[len(latencies) // 2]
-p95 = latencies[int(0.95 * len(latencies))]  # индекс 95 из ста элементов
+# p95 по методу ближайшего ранга: 95-е значение из ста, то есть индекс 94.
+# int(0.95 * n) без ceil берёт 96-е значение и чуть льстит себе
+p95 = latencies[math.ceil(0.95 * len(latencies)) - 1]
 
 print(f"медиана: {median:.1f} мс")
 print(f"p95: {p95:.1f} мс")
