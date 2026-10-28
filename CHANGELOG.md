@@ -1,3 +1,12 @@
+## [1.2.1] - 2026-10-28
+
+### Изменено
+
+- Закрыты «честные остатки» фактчека v1.2.0, все три по первичным источникам:
+  - m05: multivector в Qdrant подтверждён документацией (доступен с v1.10.0, сценарий late interaction/ColBERT/MaxSim назван прямо);
+  - m01: Harrier-OSS подтверждён на HuggingFace (microsoft/harrier-oss-v1 270M/0.6B/27B, 30.03.2026), MMTEB — arXiv 2502.13595;
+  - m00: добавлен класс «retrieval как встроенный инструмент LLM-платформы»: File search у OpenAI, MCP connector у Claude (Messages API, beta mcp-client-2025-11-20).
+
 ## [1.2.0] - 2026-10-28
 
 ### Добавлено
