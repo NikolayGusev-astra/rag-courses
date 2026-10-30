@@ -1,0 +1,18 @@
+# Разреженное внимание и длинный контекст
+
+## Разделы
+- Экономика длинного контекста: почему decode деградирует квадратично по кешу, attention sink (StreamingLLM 2309.17453) и почему первые токены критичны
+- Статические паттерны: sliding window, sink+window; что ломается (needle в середине)
+- Обучаемая разреженность: NSA (нативно обучаемая, hardware-aligned), MoBA (2502.13189, Moonshot/Kimi): block-gating, «less structure» принцип, бесшовный переход full<->sparse; MSA MiniMax
+- SpecAttn (2602.07223): self-speculative + sparse: критичность KV-записей как побочный продукт верификации, 2.81x throughput; связка с модулем 10
+- Вытеснение: H2O, SnapKV, KeyDiff (2504.15364): key-similarity вместо attention-весов; FreqDepthKV; что bench-числа не переносятся между корпусами
+- Задание 14.1: реализовать block-sparse attention маску на numpy + замер FLOPs против full на длинах 1k-32k
+- Задание 14.2: KeyDiff-эвикшн на игрушечном retrieval-тесте: сколько кеша можно выкинуть до потери needle
+
+## Первоисточники
+- arXiv 2502.13189 MoBA
+- arXiv 2309.17453 StreamingLLM
+- arXiv 2504.15364 KeyDiff
+- arXiv 2602.07223 SpecAttn
+- NSA (DeepSeek)
+- arXiv 2410.01104 Softmax is not Enough

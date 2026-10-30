@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360">
+<rect width="960" height="360" fill="#101010" rx="12"/>
+<text x="24" y="40" fill="#f5f5f5" font-size="20" font-weight="600" font-family="Segoe UI, sans-serif">Квантование: память вместо FLOPs</text><g><rect x="50" y="140" rx="10" width="190" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="145.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">fp16 / 16 ГБ</text><text x="145.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">8B модель</text></g><g><animate attributeName="opacity" values="1;0.65;1" dur="2.4s" repeatCount="indefinite"/><rect x="300" y="140" rx="10" width="180" height="64" fill="#0000F2" stroke="#4444ff" stroke-width="1.5"/><text x="390.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">группы по 64</text><text x="390.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">scale + int4</text></g><g><rect x="540" y="140" rx="10" width="170" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="625.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">~4.5 ГБ</text><text x="625.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">в 3.5 раза меньше</text></g><g><rect x="760" y="140" rx="10" width="150" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="835.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">де-квант</text><text x="835.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">на лету в matmul</text></g><line x1="240" y1="172" x2="300" y2="172" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M240,172 L300,172"/>
+  </circle><line x1="480" y1="172" x2="540" y2="172" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M480,172 L540,172"/>
+  </circle><line x1="710" y1="172" x2="760" y2="172" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M710,172 L760,172"/>
+  </circle><text x="480.0" y="290" text-anchor="middle" fill="#9aa0a6" font-size="13">веса меньше, трафик памяти меньше, декодинг быстрее даже на CPU</text>
+</svg>

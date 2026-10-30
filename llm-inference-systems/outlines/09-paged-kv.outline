@@ -1,0 +1,12 @@
+# Модуль 09: PagedAttention — пейджинг KV-кэша
+Источник: vLLM paper (Kwon et al., SOSP'23) — это и есть «paged KV» из tiny-llm week 3.
+- Проблема: KV-кэш под max_seq_len заранее → фрагментация: internal (запрос на 10 токенов занял 2048) и external (нет непрерывного куска). В vLLM: отходы <4% против 60-80% в системах с резервированием. Числа из paper.
+- Идея: KV-кэш как виртуальная память: логические блоки по 16 токенов → физические блоки в пуле; block table (маппинг) на CPU, копирование без realloc. Идентификация: prefix sharing — несколько запросов с общим системным промптом ссылаются на одни блоки (copy-on-write при расхождении).
+- Реализация пейджинга (numpy/torch): BlockPool (physical blocks), BlockTable, append_token с аллокацией; attention по страницам: gather блоков, декод-внимание по страницам вместо contiguous кэша.
+- FlashAttention с paged-KV: у vLLM attention-кернел читает K/V по block_table (paged attention kernel). Идея ядра в 10 строках, без CUDA.
+- Квантование KV-кэша: per-block scales; качество.
+- Приёмка: настоящий прогон двух запросов с общим префиксом (системный промпт 512 токенов) — показывает shared blocks; печать block table; память: экономия.
+- Задание 09.1: BlockPool + BlockTable + append/evict; тест: фрагментация отсутствует, остаток <4%.
+- Задание 09.2: attention по страницам; сверка с contiguous кэшем.
+- Задание 09.3: prefix sharing; печать block table двух запросов.
+- Сводка.

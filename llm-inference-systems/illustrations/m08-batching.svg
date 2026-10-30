@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360">
+<rect width="960" height="360" fill="#101010" rx="12"/>
+<text x="24" y="40" fill="#f5f5f5" font-size="20" font-weight="600" font-family="Segoe UI, sans-serif">Continuous batching: запросы входят и выходят</text><g><rect x="40" y="70" rx="10" width="170" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="125.0" y="98.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Очередь запросов</text><text x="125.0" y="118.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">приходят вразнобой</text></g><g><rect x="40" y="230" rx="10" width="170" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="125.0" y="258.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Префилл чанками</text><text x="125.0" y="278.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">бюджет на шаг</text></g><g><animate attributeName="opacity" values="1;0.65;1" dur="2.4s" repeatCount="indefinite"/><rect x="320" y="90" rx="10" width="220" height="180" fill="#0000F2" stroke="#4444ff" stroke-width="1.5"/><text x="430.0" y="185.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Шедулер: микс декодов и кусок префилла</text></g><g><rect x="640" y="70" rx="10" width="150" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="715.0" y="98.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">выполнившиеся</text><text x="715.0" y="118.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">выходят</text></g><g><rect x="640" y="230" rx="10" width="150" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="715.0" y="258.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">новые</text><text x="715.0" y="278.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">входят сразу</text></g><line x1="210" y1="102" x2="320" y2="130" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M210,102 L320,130"/>
+  </circle><line x1="210" y1="232" x2="320" y2="210" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M210,232 L320,210"/>
+  </circle><line x1="540" y1="130" x2="640" y2="102" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M540,130 L640,102"/>
+  </circle><line x1="540" y1="210" x2="640" y2="232" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M540,210 L640,232"/>
+  </circle><text x="480.0" y="300" text-anchor="middle" fill="#9aa0a6" font-size="13">GPU простаивает, только когда кончились запросы, а не самый длинный</text>
+</svg>

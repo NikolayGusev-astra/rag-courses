@@ -34,3 +34,14 @@ https://github.com/NikolayGusev-astra/rag-courses/releases.atom
 - Исправления кода и фактов.
 
 Правка опечаток в версию не попадает.
+
+## Курс LLM Inference Systems
+
+Материалы лежат в каталоге [`llm-inference-systems/`](./llm-inference-systems/). Для уведомлений о новых версиях используется та же подписка на релизы этого репозитория:
+
+- GitHub: **Watch → Custom → Releases**;
+- RSS релизов: `https://github.com/NikolayGusev-astra/rag-courses/releases.atom`;
+- сайт курса: https://hermes-agent.ru/courses/llm-inference/;
+- история изменений: [`CHANGELOG.md`](./CHANGELOG.md).
+
+В конце курса на сайте также есть краткая инструкция в разделе «Обновления курса».

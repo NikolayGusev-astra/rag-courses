@@ -1,0 +1,12 @@
+# Модуль 03: Автогрессивный цикл и сэмплирование
+Источники: tiny-llm week 1 (день 5), HF generation docs, Karpathy «Let's build GPT» ч.2.
+- От логитов к токену: softmax → temperature → top-k → top-p → выбор. Каждый шаг с формулой и примером на 5 токенах с числами.
+- Greedy vs sampling: где нужен детерминизм (код, извлечение) и где разнообразие.
+- top-k/top-p реализации на numpy; nucleus truncation.
+- Autoregressive loop: токенизатор (BPE, tiktoken/Qwen tokenizer через transformers), цикл эмбеддинг→модель→логиты→сэмпл→следующий вход.
+- Собрать минимальный генератор Qwen3-0.6B на torch (без MLX, чтобы работал на CPU Windows): загрузка safetensors, forward по слоям: embed → 28×(rmsnorm→attention→residual→rmsnorm→MLP(SwiGLU)→residual) → final norm → lm_head. MLP: gate/up/down 3 матрицы, SwiGLU = silu(gate)*up.
+- Полный forward Qwen3-0.6B ~200 строк. Проверка: тот же промпт в transformers generate → совпадение токенов greedy (или почти совпадение, объяснить допуски bf16).
+- Первое появление KV-кэша как проблемы: без кэша каждый шаг пересчитывает все прошлые токены — стоимость растёт O(n^2); в модуле 04 чиним.
+- Задание 03.1: сэмплер top-k/top-p с тестом на фиксированном распределении.
+- Задание 03.2: forward Qwen3-0.6B на torch CPU, сверка с transformers (greedy, 20 токенов, допуск).
+- Сводка.

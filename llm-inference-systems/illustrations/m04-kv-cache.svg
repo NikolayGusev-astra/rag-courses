@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360">
+<rect width="960" height="360" fill="#101010" rx="12"/>
+<text x="24" y="40" fill="#f5f5f5" font-size="20" font-weight="600" font-family="Segoe UI, sans-serif">KV-кэш: прошлое не пересчитываем</text><g><rect x="50" y="140" rx="10" width="170" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="135.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Промпт 2048</text><text x="135.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">prefill, разом</text></g><g><animate attributeName="opacity" values="1;0.65;1" dur="2.4s" repeatCount="indefinite"/><rect x="290" y="140" rx="10" width="180" height="64" fill="#0000F2" stroke="#4444ff" stroke-width="1.5"/><text x="380.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">K,V кэш по слоям</text><text x="380.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">fp16: сотни МБ</text></g><g><rect x="540" y="140" rx="10" width="160" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="620.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Новый токен</text><text x="620.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">decode, по одному</text></g><g><rect x="760" y="140" rx="10" width="150" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="835.0" y="177.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">append в кэш</text></g><line x1="220" y1="172" x2="290" y2="172" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M220,172 L290,172"/>
+  </circle><line x1="470" y1="172" x2="540" y2="172" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M470,172 L540,172"/>
+  </circle><line x1="700" y1="172" x2="760" y2="172" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M700,172 L760,172"/>
+  </circle><circle r="4" fill="#0000F2"><animateMotion dur="2s" repeatCount="indefinite" path="M760,172 L835,172 L835,262 L375,262 L375,204"/></circle><text x="480.0" y="300" text-anchor="middle" fill="#9aa0a6" font-size="13">без кэша шаг растёт O(n2), с кэшем O(n); GQA режет кэш в 4 раза</text>
+</svg>

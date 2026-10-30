@@ -1,0 +1,12 @@
+# Модуль 07: Fused-операторы и FlashAttention
+Источники: tiny-llm week 2 day 4 (cumulative RMSNorm/RoPE/SwiGLU checkpoints), FlashAttention-1/2 (Dao et al. 2022, 2023).
+- Проблема отдельных операторов: каждый оператор читает-пишет активации из HBM; fusion убирает трафик. Числа: RMSNorm как 3 прохода vs 1 fused.
+- Fused RMSNorm: один проход с кумулятивной суммой квадратов (Welford/простое накопление в регистрах).
+- Fused SwiGLU: silu(gate)*up в одном кернеле; на numpy это тривиально, на GPU — экономия 2 проходов HBM.
+- FlashAttention: идея — не materialize S=QK^T (O(n^2) в HBM), а tiled-вычисление с online softmax (бегущий max и сумма); IO-сложность O(n^2 d^2 M^-1) против O(n^2). Разобрать алгоритм по шагам с числовым примером 8x8.
+- Реализация FlashAttention-наив на numpy: блоки 4x4, online softmax, проверка против обычного attention (модуль 02) — diff < 1e-5. Память: сравнить пик памяти (не материализуем полный S).
+- Online softmax математика: m_new=max(m_old, row_max_block); l_new = l_old*exp(m_old-m_new)+...; rescale при финализации. Полный вывод.
+- FlashAttention-2: переразбивка по строкам, меньше non-matmul FLOPs; числа скорости против FA-1.
+- Задание 07.1: fused_rms_norm (numpy, один проход по x без materializing x^2 mean отдельно).
+- Задание 07.2: flash attention naive numpy с блоками + тест против обычного.
+- Сводка.

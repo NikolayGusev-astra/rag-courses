@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360">
+<rect width="960" height="360" fill="#101010" rx="12"/>
+<text x="24" y="40" fill="#f5f5f5" font-size="20" font-weight="600" font-family="Segoe UI, sans-serif">PagedAttention: KV как страницы памяти</text><g><rect x="50" y="140" rx="10" width="170" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="135.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Логич. блоки</text><text x="135.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">по 16 токенов</text></g><g><animate attributeName="opacity" values="1;0.65;1" dur="2.4s" repeatCount="indefinite"/><rect x="290" y="140" rx="10" width="160" height="64" fill="#0000F2" stroke="#4444ff" stroke-width="1.5"/><text x="370.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Block table</text><text x="370.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">логич. к физич.</text></g><g><rect x="520" y="140" rx="10" width="200" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="620.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Пул физич. блоков</text><text x="620.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">без резерва max_len</text></g><g><rect x="780" y="140" rx="10" width="140" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="850.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Общий префикс</text><text x="850.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">shared blocks</text></g><line x1="220" y1="172" x2="290" y2="172" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M220,172 L290,172"/>
+  </circle><line x1="450" y1="172" x2="520" y2="172" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M450,172 L520,172"/>
+  </circle><line x1="720" y1="172" x2="780" y2="172" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M720,172 L780,172"/>
+  </circle><text x="480.0" y="290" text-anchor="middle" fill="#9aa0a6" font-size="13">фрагментация 60-80% превращается в меньше 4%; copy-on-write при расхождении</text>
+</svg>

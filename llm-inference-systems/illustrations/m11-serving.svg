@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360">
+<rect width="960" height="360" fill="#101010" rx="12"/>
+<text x="24" y="40" fill="#f5f5f5" font-size="20" font-weight="600" font-family="Segoe UI, sans-serif">Сервинг: TTFT и TPOT под SLO</text><g><rect x="50" y="140" rx="10" width="170" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="135.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Клиент</text><text x="135.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">SSE-стрим</text></g><g><animate attributeName="opacity" values="1;0.65;1" dur="2.4s" repeatCount="indefinite"/><rect x="290" y="140" rx="10" width="170" height="64" fill="#0000F2" stroke="#4444ff" stroke-width="1.5"/><text x="375.0" y="177.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">llama-server / vLLM</text></g><g><rect x="530" y="140" rx="10" width="170" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="615.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">TTFT p95 &lt; 500мс</text><text x="615.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">TPOT < 50мс</text></g><g><rect x="760" y="140" rx="10" width="150" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="835.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">metrics json</text><text x="835.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">queue, tok/s</text></g><line x1="220" y1="172" x2="290" y2="172" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M220,172 L290,172"/>
+  </circle><line x1="460" y1="172" x2="530" y2="172" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M460,172 L530,172"/>
+  </circle><line x1="700" y1="172" x2="760" y2="172" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M700,172 L760,172"/>
+  </circle><text x="480.0" y="290" text-anchor="middle" fill="#9aa0a6" font-size="13">p95, не средние: хвост важнее среднего, среднее врёт</text>
+</svg>

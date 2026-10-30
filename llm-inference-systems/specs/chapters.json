@@ -1,0 +1,67 @@
+[
+ [
+  "00-intro",
+  "Ландшафт инференса LLM: три пути к своему движку",
+  "Почему инференс это отдельная дисциплина: memory-bound декодинг, арифметика памяти, стеки MLX/CUDA/CPU и что мы строим за курс."
+ ],
+ [
+  "01-tensors",
+  "От matmul к тексту: тензоры и базовые операторы",
+  "Matmul, RMSNorm, embedding и Linear руками на numpy с проверкой на оракуле torch."
+ ],
+ [
+  "02-attention",
+  "Attention, RoPE и GQA",
+  "Attention с causal mask, Multi-Head и GQA, повороты RoPE. Сборка attention целиком и проверка против torch."
+ ],
+ [
+  "03-sampling",
+  "Автогрессивный цикл и сэмплирование",
+  "temperature, top-k, top-p и полный forward Qwen3-0.6B на torch CPU со сверкой с transformers."
+ ],
+ [
+  "04-kv-cache",
+  "KV-кэш и арифметика памяти",
+  "Prefill против decode, класс KVCache, формула памяти кэша, GQA-экономия и ускорение на реальном прогоне."
+ ],
+ [
+  "05-quantization",
+  "Квантование весов: W4 и GGUF",
+  "Групповое int4, quantized matvec, формат GGUF и k-quants llama.cpp, когда нужны GPTQ и AWQ."
+ ],
+ [
+  "06-kernels",
+  "Кернелы: SIMD-матмул и tiled prefill",
+  "Иерархия памяти и roofline, AVX2-кернел на C, листинги Metal и CUDA, tiled prefill."
+ ],
+ [
+  "07-fused",
+  "Fused-операторы и FlashAttention",
+  "Fusion против трафика HBM, online softmax, FlashAttention-наив на numpy с проверкой."
+ ],
+ [
+  "08-batching",
+  "Continuous batching и чанкерная префилла",
+  "Статический против continuous батчинга, Orca и vLLM, симулятор шедулера с TTFT и throughput."
+ ],
+ [
+  "09-paged-kv",
+  "PagedAttention: пейджинг KV-кэша",
+  "BlockPool и BlockTable, prefix sharing, copy-on-write, attention по страницам."
+ ],
+ [
+  "10-distributed",
+  "Дистрибуция и спекулятивный декодинг",
+  "Tensor и pipeline parallel, арифметика How to Scale Your Model, спекуляция и MTP."
+ ],
+ [
+  "11-serving",
+  "Прод-сервинг: метрики и движки",
+  "TTFT и TPOT под SLO, llama-server и vLLM, prefix caching, стриминг, наблюдаемость."
+ ],
+ [
+  "12-final",
+  "Финальный проект: мини-движок инференса",
+  "qwen-serve-lite: шедулер, paged KV, int4, сэмплер, SSE-сервер. Приёмка шестью тестами."
+ ]
+]

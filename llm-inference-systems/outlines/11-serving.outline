@@ -1,0 +1,12 @@
+# Модуль 11: Прод-сервинг — метрики и движки
+Источники: документация vLLM/SGLang/llama.cpp server, GPU-mode, Anyscale «Rise of vLLM».
+- Метрики: TTFT (time to first token — ощущение скорости), TPOT/inter-token latency, throughput (tok/s аггрегированный), p95/p99 — не средние. SLO-пример: чат — TTFT p95 < 500 мс, TPOT < 50 мс; batch — только throughput.
+- Экономика: $/1M токенов от throughput; memory-bound предела.
+- llama.cpp server: llama-server, endpoints /completion /v1/chat/completions; флаги -c (контекст), -ngl (слоёв на GPU), --parallel (слоты), --cont-batching. Команды и ожидаемый вывод. Кэш-KV quantization -ctk/-ctv q8_0.
+- vLLM: python -m vllm.entrypoints.openai.api_server; --gpu-memory-utilization, --max-model-len, --enable-chunked-prefill, --enable-prefix-caching; если установлен — замерить бенчмарком. Помечено «нужен GPU/CUDA» — на Windows CPU-сборка ограничена, альтернатива llama.cpp.
+- Prefix caching: повторный системный промпт бесплатный (ссылка на модуль 09); числа экономии TTFT.
+- Streaming: SSE-поток токенов, отмена запроса (abort) — что происходит с KV-кэшем отменённого запроса.
+- Наблюдаемость: что логировать (tokens, ttft, queue time), какие дашборды; троттлинг по квоте.
+- Задание 11.1 (обязательное): llama.cpp server + curl: 3 запроса, замер TTFT/TPOT по выводу stream=true; таблица результатов; настройка --parallel 4 и повтор.
+- Задание 11.2: нагрузочный мини-тест на llama.cpp (asyncio, 20 запросов, пуассон) — метрики до/за пределом.
+- Сводка.

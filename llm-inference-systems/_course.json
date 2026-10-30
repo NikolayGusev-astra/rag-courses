@@ -1,0 +1,8 @@
+{
+  "version": "1.0.0",
+  "title": "LLM Inference Systems",
+  "repo": "https://github.com/NikolayGusev-astra/rag-courses",
+  "site": "https://hermes-agent.ru/courses/llm-inference/",
+  "license_text": "CC BY-SA 4.0",
+  "license_code": "MIT"
+}

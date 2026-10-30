@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360">
+<rect width="960" height="360" fill="#101010" rx="12"/>
+<text x="24" y="40" fill="#f5f5f5" font-size="20" font-weight="600" font-family="Segoe UI, sans-serif">LLM-инференс: три пути к своему движку</text><g><rect x="40" y="140" rx="10" width="170" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="125.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Веса модели</text><text x="125.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">safetensors / GGUF</text></g><g><rect x="300" y="60" rx="10" width="180" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="390.0" y="88.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">MLX / Apple Silicon</text><text x="390.0" y="108.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">tiny-llm, ядро курса</text></g><g><rect x="300" y="140" rx="10" width="180" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="390.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">CUDA / PyTorch</text><text x="390.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">llm.c, FlashAttention, vLLM</text></g><g><rect x="300" y="220" rx="10" width="180" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="390.0" y="248.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">CPU / GGUF</text><text x="390.0" y="268.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">llama.cpp, k-quants</text></g><g><animate attributeName="opacity" values="1;0.65;1" dur="2.4s" repeatCount="indefinite"/><rect x="600" y="60" rx="10" width="160" height="64" fill="#0000F2" stroke="#4444ff" stroke-width="1.5"/><text x="680.0" y="88.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Свой движок</text><text x="680.0" y="108.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">paged KV, batching</text></g><g><rect x="600" y="140" rx="10" width="160" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="680.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Прод-сервинг</text><text x="680.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">TTFT, p95, экономика</text></g><g><rect x="600" y="220" rx="10" width="160" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="680.0" y="248.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Квантование</text><text x="680.0" y="268.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">W4, память вместо FLOPs</text></g><line x1="210" y1="172.0" x2="300" y2="92.0" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M210,172.0 L300,92.0"/>
+  </circle><line x1="210" y1="172.0" x2="300" y2="172.0" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0.7s" path="M210,172.0 L300,172.0"/>
+  </circle><line x1="210" y1="172.0" x2="300" y2="252.0" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="1.4s" path="M210,172.0 L300,252.0"/>
+  </circle><line x1="480" y1="92" x2="600" y2="92" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="2s" path="M480,92 L600,92"/>
+  </circle><line x1="480" y1="172" x2="600" y2="172" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0.5s" path="M480,172 L600,172"/>
+  </circle><line x1="480" y1="252" x2="600" y2="252" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="1.2s" path="M480,252 L600,252"/>
+  </circle>
+</svg>

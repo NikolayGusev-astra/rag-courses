@@ -1,0 +1,12 @@
+# Модуль 01: От matmul к тексту — тензоры и базовые операторы
+Источник: tiny-llm week 1 (days 1-2).
+- Матмул как фундамент: C=AB, сложность 2mnk FLOPs, блочность, почему наивный цикл в 100x медленнее BLAS. Число: numpy dgemm vs python loops.
+- Что нужно трансформеру из линейной алгебры: matmul, transpose, broadcast, softmax по последней оси.
+- RMSNorm: формула x/sqrt(mean(x^2)+eps)*w; сравнение с LayerNorm (без centering); почему так сделали (меньше операций, работает так же). Задание: реализовать RMSNorm в numpy, сравнить с mlx.core.rms_norm / torch.nn.RMSNorm как оракулом, max abs diff < 1e-5.
+- Embedding: словарь 151k, d_model; lookup vs one-hot matmul (эквивалентность, почему lookup).
+- Linear layer: y = xW^T + b, размеры. Реализовать Linear на numpy, оракул torch.nn.Linear.
+- Тест на оракуле: скрипт проверки с random-данными, фиксация seed, допуск 1e-5 fp32.
+- Как проверять себя: оракул-метод — своя реализация против эталонной библиотеки на случайных входах; это паттерн всего курса.
+- Задание 01.1: rms_norm, linear, embedding на numpy + проверка против torch.
+- Задание 01.2 (опционально, Apple Silicon): то же на mlx.core.
+- Сводка.

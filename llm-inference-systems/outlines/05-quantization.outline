@@ -1,0 +1,13 @@
+# Модуль 05: Квантование весов — W4 и GGUF
+Источники: tiny-llm week 2 day 2 (quantized-matvec), llama.cpp k-quants README, GPTQ/AWQ обзоры.
+- Зачем: память весов доминирует; 8B fp16 16 ГБ → int4 ~4.5 ГБ. Обратная сторона: качество деградирует неравномерно.
+- Простейшая схема: групповое симметричное квантование — на группу 32/64/128 один scale (absmax) + int4. Де-квант на лету в matmul (dequant-matmul) vs честный int-матмул (qdq). tiny-llm путь: quantized matvec — деквантование в кернеле.
+- Реализация: quantize_int4_groupwise(w, group=64) → (q, scales); dequantized_matvec. Проверка: относительная ошибка на random матрице < 1%; затем на реальных весах Qwen3-0.6B.
+- Пакетинг: два int4 в байт; unpack half-byte; почему это реально в C/Metal-кернеле и подражается в numpy.
+- llama.cpp путь: GGUF формат, k-quants (Q4_K суперблоки 256 со scale+min), симметричность блоков; сравнение Q4_0/Q4_K/Q5_K/Q8_0 по битам на вес и perplexity. Таблица.
+- CPU-инференс: почему llama.cpp быстрый без GPU: квантование уменьшает трафик памяти (главный лимит), AVX2/NEON матмул int8→int32, mmap весов. Числа: tok/s 7B Q4 на разных CPU.
+- Calibrated schemes: GPTQ (Hessian-based, per-layer) и AWQ (activation-aware scale) — идея в 3 абзацах, без формул Гессиана. Когда llama.cpp-квантование (без калибровки) достаточно.
+- Задание 05.1: groupwise int4 quantizer + dequant-matvec, ошибка на весах Qwen3-0.6B: напечатать RMS-ошибку логитов fp16 vs int4-dequant на 5 промптах.
+- Задание 05.2: конвертация слоёв в int4 и генерация текста де-квантованными весами; сравнить вывод с fp16 greedy.
+- Опционально: llama.cpp CLI, llama-quantize, bench. Команды и ожидаемый вывод (помечено «если установлен llama.cpp»).
+- Сводка.

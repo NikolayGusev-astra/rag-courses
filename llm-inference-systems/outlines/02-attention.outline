@@ -1,0 +1,12 @@
+# Модуль 02: Attention, RoPE, GQA — сердце модели
+Источники: tiny-llm week 1, Attention Is All You Need, GQA paper (Ainslie 2023), RoPE (Su et al.).
+- Attention: QK^T/sqrt(d_k), softmax, взвешенная сумма V. Почему sqrt(d_k): дисперсия dot product растёт с d, softmax вырождается. Механика на числах.
+- Causal mask: -inf до softmax. Треугольник.
+- Multi-Head: разрез d_model на h голов по d_k=d_model/h; независимые подпространства.
+- GQA: n_kv_heads < n_heads; KV-кэш меньше в n_heads/n_kv_heads раз (для Qwen3-8B: 32/8 = 4x меньше KV-кэша). Реализовать repeat_kv.
+- RoPE: поворот пар координат на угол m*theta_i, theta_i = 10000^(-2i/d); относительная позиция в QK^T автоматически. Реализация: complex-путь и real-путь; кэш cos/sin.
+- Собрать scaled_dot_product_attention целиком на numpy: с маской, GQA, RoPE. Оракул: torch.nn.functional.scaled_dot_product_attention + ручной RoPE из HF transformers.
+- Память: attention-матрица O(seq^2) на голову — почему претренинг так дорого и зачем FlashAttention (анонс модуля 07).
+- Задание 02.1: attention forward numpy, проверка против torch (sdpa без flash, math бэкенд), max diff < 1e-4.
+- Задание 02.2: GQA + RoPE, проверка позиционной зависимости: q на позиции 1 vs 100 даёт разные логиты на том же ключе.
+- Сводка.

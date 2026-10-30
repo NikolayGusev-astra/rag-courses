@@ -1,0 +1,16 @@
+# Самоспекулятивный декодинг: драфтер внутри модели
+
+## Разделы
+- От внешнего драфтера к само-спекуляции: почему отдельная модель дорога (модуль 10), что даёт внутренний драфт: слои-скип, ранний выход, MoE-эксперты
+- S2-MoE (2608.15018): routing-aware draft для MoE на edge, 5.3x peak / 2x average в llama.cpp; reuse-aware expert gating
+- Self-speculative со sparse attention (2602.07223): draft на подмножестве кеша, verify на полном — lossless
+- Component-aware self-speculation для гибридных моделей (2605.01106)
+- Экономика: acceptance rate против стоимости draft-прохода; когда спекуляция вредна (наш опыт: DFlash 0.25x на 4060 под нагрузкой)
+- Задание 15.1: слой-скип спекуляция на toy-модели: draft = forward без K последних слоёв, verify полным проходом; замер acceptance и wall-clock против модуля 10
+- Задание 15.2: адаптивная длина драфта по скользящему acceptance — простейший контроллер
+
+## Первоисточники
+- arXiv 2608.15018 S2-MoE
+- arXiv 2602.07223 SpecAttn
+- arXiv 2605.01106 component-aware
+- EAGLE/Medusa как фон

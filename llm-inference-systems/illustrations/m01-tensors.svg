@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360">
+<rect width="960" height="360" fill="#101010" rx="12"/>
+<text x="24" y="40" fill="#f5f5f5" font-size="20" font-weight="600" font-family="Segoe UI, sans-serif">Matmul: каждый токен читает все веса</text><g><rect x="60" y="140" rx="10" width="170" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="145.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Токен</text><text x="145.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">embedding 1024</text></g><g><animate attributeName="opacity" values="1;0.65;1" dur="2.4s" repeatCount="indefinite"/><rect x="300" y="140" rx="10" width="200" height="64" fill="#0000F2" stroke="#4444ff" stroke-width="1.5"/><text x="400.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">W: 28 слоёв x 4 матрицы</text><text x="400.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">все ~600М весов</text></g><g><rect x="580" y="140" rx="10" width="160" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="660.0" y="177.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Логиты 151k</text></g><g><rect x="770" y="140" rx="10" width="150" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="845.0" y="177.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Следующий токен</text></g><line x1="230" y1="172" x2="300" y2="172" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M230,172 L300,172"/>
+  </circle><line x1="500" y1="172" x2="580" y2="172" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M500,172 L580,172"/>
+  </circle><line x1="740" y1="172" x2="770" y2="172" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M740,172 L770,172"/>
+  </circle><text x="480.0" y="290" text-anchor="middle" fill="#9aa0a6" font-size="13">Скорость декодинга упирается в чтение памяти: 0.6B fp16 = 1.2 ГБ на токен</text>
+</svg>

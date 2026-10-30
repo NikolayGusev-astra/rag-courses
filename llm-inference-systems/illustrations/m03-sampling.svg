@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360">
+<rect width="960" height="360" fill="#101010" rx="12"/>
+<text x="24" y="40" fill="#f5f5f5" font-size="20" font-weight="600" font-family="Segoe UI, sans-serif">Автогрессивный цикл: логиты, токен, снова</text><g><rect x="40" y="140" rx="10" width="150" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="115.0" y="168.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Токенизатор</text><text x="115.0" y="188.0" text-anchor="middle" fill="#9aa0a6" font-size="12" font-family="Segoe UI, sans-serif">BPE 151k</text></g><g><animate attributeName="opacity" values="1;0.65;1" dur="2.4s" repeatCount="indefinite"/><rect x="240" y="140" rx="10" width="170" height="64" fill="#0000F2" stroke="#4444ff" stroke-width="1.5"/><text x="325.0" y="177.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Forward 28 слоёв</text></g><g><rect x="460" y="140" rx="10" width="150" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="535.0" y="177.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">Логиты</text></g><g><rect x="660" y="140" rx="10" width="130" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="725.0" y="177.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">top-k/top-p</text></g><g><rect x="810" y="140" rx="10" width="110" height="64" fill="#1a1a1a" stroke="#3a3a3a" stroke-width="1.5"/><text x="865.0" y="177.0" text-anchor="middle" fill="#f5f5f5" font-size="15" font-family="Segoe UI, sans-serif">токен</text></g><path d="M865,204 L865,280 L120,280 L120,204" fill="none" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2"><animateMotion dur="2.5s" repeatCount="indefinite" path="M865,204 L865,280 L120,280 L120,204"/></circle>
+  <text x="480" y="300" text-anchor="middle" fill="#9aa0a6" font-size="13">каждый шаг: ещё один проход по весам, memory-bound</text><line x1="190" y1="172" x2="240" y2="172" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M190,172 L240,172"/>
+  </circle><line x1="410" y1="172" x2="460" y2="172" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M410,172 L460,172"/>
+  </circle><line x1="610" y1="172" x2="660" y2="172" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M610,172 L660,172"/>
+  </circle><line x1="790" y1="172" x2="810" y2="172" stroke="#9aa0a6" stroke-width="1.5"/>
+  <circle r="4" fill="#0000F2">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="0s" path="M790,172 L810,172"/>
+  </circle>
+</svg>

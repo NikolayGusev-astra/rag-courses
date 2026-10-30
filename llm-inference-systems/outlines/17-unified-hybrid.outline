@@ -1,0 +1,49 @@
+# Модуль 17: Unified memory и гибридные ноды: четвёртый путь инференса
+
+## Тезис
+«Три пути курса» (MLX/CUDA/CPU-GGUF) — это ось программного стека. Есть ортогональная
+ось железа: класс устройств с когерентной unified memory (Apple M-серии, AMD Strix Halo
+/ Ryzen AI Max 395, NVIDIA DGX Spark / GB10) и гибридные ноды (unified-memory бокс +
+дискретный GPU). Курс обязан показать их отдельно: память и её ширина, а не FLOPs,
+решают, что запустится; а способы оптимизации этого класса — отдельный набор рецептов.
+
+## Разделы
+1. Классификация железа по памяти, не по вендору:
+   - дискретный GPU: VRAM узкая и быстрая (HBM/GDDR7), PCIe к host
+   - unified memory когерентная: Apple M (до 512 ГБ, ~800 ГБ/с M3 Ultra), DGX Spark
+     (128 ГБ LPDDR5X, GB10, 1 PFLOP FP4, ConnectX-7 на 4 узла), Strix Halo
+     (128 ГБ LPDDR5X-8000, 256-бит шина ~273 ГБ/с)
+   - таблица: память x ширина x пиковые FLOPs x цена — и почему DGX Spark FP4-петафлопс
+     даёт 35B MoE всего 40 tok/s (bottleneck — память), а Qwen3.8-27B в NVFP4+DFlash2
+     на SGLang — 72 tok/s (рецепт)
+2. Архитектура памяти: когерентная единая адресация vs раздельные адресные пространства;
+   почему на Strix Halo главный рецепт — «отдать память под GPU» (gtt/uma-настройка);
+   где у Mac преимущество (шина 800+ ГБ/с vs 273 ГБ/с)
+3. Оптимизации unified-memory класса:
+   - placement: сколько слоёв на GPU vs CPU (правильный ответ — почти все на GPU,
+     т.к. шина общая; ловушка консервативного offload в LM Studio)
+   - KV-cache в общей памяти, prefetch
+   - MoE expert offload: холодные эксперты в RAM, горячие в VRAM (KTransformers:
+     DeepSeek-V4-Flash на одном GPU + CPU experts; RAWINT4/MXFP4 routed experts;
+     LoRA fine-tune той же схемой) — CPU-GPU гетерогенная ко-обработка как дисциплина
+   - спекуляция и quantization поверх (NVFP4 + DFlash2 на Spark)
+   - кластеризация: ConnectX-7 до 4 Spark (мост к модулю 13: RDMA-хэндофф между ними)
+4. Гибридные ноды: unified-memory бокс + дискретный NVIDIA GPU:
+   - схема: большая модель/префилл на unified-нодах, decode/fast-head на GPU
+   - что передаётся: KV-хэндофф (модуль 13) по RDMA/Thunderbolt/ConnectX
+   - рецепты: draft-модель на GPU, target на unified; MoE-эксперты в RAM GPU-ноды;
+     NPU в SOCs (XDNA2, 50 TOPS) — что реально, а что маркетинг для LLM-инференса
+   - когда выгодно: расчёт порога как в модуле 13
+5. Задание 17.1: калькулятор placement — для заданного железа (память x ширина) и модели
+   (параметры, активные параметры, KV) посчитать лучшие раскладки и ожидаемый tok/s
+   по memory-bound формуле из модуля 01
+6. Задание 17.2: симуляция MoE offload — hot/cold эксперты, замер влияния hit-rate
+   кеша экспертов на wall-clock
+
+## Первоисточники (официальные)
+- NVIDIA DGX Spark: nvidia.com/en-us/products/workstations/dgx-spark (GB10, 128 ГБ unified, ConnectX-7 4 узла)
+- AMD Ryzen AI Max: amd.com (Strix Halo, 128 ГБ LPDDR5X-8000, 256-бит)
+- Apple M-серия: apple.com (архитектура unified memory)
+- KTransformers: github.com/kvcache-ai/ktransformers (CPU-GPU heterogeneous, MoE offload, KT-FT preprint)
+- SGLang/vLLM официальные docs для рецептов
+- замеры: наш internal план фермы (workplan-llm-farm-gateway.md) — как «наш замер»

@@ -1,0 +1,10 @@
+# Модуль 06: Кернелы — SIMD-матмул и tiled prefill
+Источники: tiny-llm week 2 days 3-5 (simd-matmul, tiled-prefill), llm.c (Karpathy) matmul-кернел, GPU-mode.
+- Почему BLAS быстрый: blocking/тайлинг под кэш, векторизация SIMD, memory coalescing. Иерархия памяти с числами: L1 32КБ ~4 цикла, L2 1МБ ~14, DRAM ~200 циклов; roofline-модель в двух словах.
+- Наивный matvec → векторизованный: numpy путь (dot уже BLAS), но руками: padding до кратного 8, суммы по 8 элементов. На C: float массивы, -O3, __m256 (AVX2) FMA. Показать C-код кернела matvec 60-80 строк с комментариями; скорость против numpy dot (объяснить, почему numpy всё равно выигрывает: многопоточность+блочность).
+- Metal-кернел (только Apple Silicon): tiny-llm simd_matmul — threadgroup, simd_reduce; показать листинг с объяснением сетки потоков. Помечено «на Windows не собирается, читать глазами».
+- CUDA-аналог: llm.c matmul_forward_kernel — показать ядро с тайлингом; концепция warps, shared memory. Тоже «читать глазами», запуск опционален.
+- Tiled prefill: почему префилл большой матрицей чанками лучше кэш-локальности; батчинг матмулов промпта.
+- Задание 06.1 (обязательное, C): собрать AVX2 matvec (gcc/clang -mavx2 -O3), замер против -O0; ожидаемое ускорение 5-15x. На Windows: MSVC или mingw gcc — дать обе команды.
+- Задание 06.2: tiled prefill на numpy: разбить prefill на чанки 256, замерить; объяснить результат.
+- Сводка.
