@@ -17,7 +17,7 @@ PR не приходит.
 Подпишись в своём ридере на:
 
 ```
-https://github.com/NikolayGusev-astra/rag-courses/releases.atom
+https://github.com/NikolayGusev-astra/llm-inference-systems/releases.atom
 ```
 
 Каждый релиз — запись с номером версии и списком обновлённых глав.
@@ -40,7 +40,7 @@ https://github.com/NikolayGusev-astra/rag-courses/releases.atom
 Материалы лежат в каталоге [`llm-inference-systems/`](./llm-inference-systems/). Для уведомлений о новых версиях используется та же подписка на релизы этого репозитория:
 
 - GitHub: **Watch → Custom → Releases**;
-- RSS релизов: `https://github.com/NikolayGusev-astra/rag-courses/releases.atom`;
+- RSS релизов: `https://github.com/NikolayGusev-astra/llm-inference-systems/releases.atom`;
 - сайт курса: https://hermes-agent.ru/courses/llm-inference/;
 - история изменений: [`CHANGELOG.md`](./CHANGELOG.md).
 
